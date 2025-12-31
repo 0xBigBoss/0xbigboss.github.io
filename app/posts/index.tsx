@@ -118,7 +118,7 @@ export default function PostsIndex() {
         {/* Posts list */}
         {posts.map((post) => {
           const formattedDate = post.date
-            ? new Date(post.date).toLocaleDateString('en-US', {
+            ? new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',

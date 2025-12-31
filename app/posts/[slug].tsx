@@ -47,7 +47,7 @@ export default function PostPage() {
   const Component = useMemo(() => getMDXComponent(code), [code])
 
   const formattedDate = frontmatter.date
-    ? new Date(frontmatter.date).toLocaleDateString('en-US', {
+    ? new Date(frontmatter.date + 'T12:00:00').toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
