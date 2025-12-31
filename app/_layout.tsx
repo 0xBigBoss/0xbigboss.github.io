@@ -26,12 +26,12 @@ export default function Layout() {
         <meta property="og:image" content="https://0xbigboss.github.io/images/heroes/home.png" />
 
         {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://0xbigboss.github.io/" />
-        <meta property="twitter:title" content="Allen Eubank | Big Boss" />
-        <meta property="twitter:description" content="Builder and engineer. We can build anything we want given enough time." />
-        <meta property="twitter:image" content="https://0xbigboss.github.io/images/heroes/home.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@zeroxBigBoss" />
         <meta name="twitter:creator" content="@zeroxBigBoss" />
+        <meta name="twitter:title" content="Allen Eubank | Big Boss" />
+        <meta name="twitter:description" content="Builder and engineer. We can build anything we want given enough time." />
+        <meta name="twitter:image" content="https://0xbigboss.github.io/images/heroes/home.png" />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.svg" />
