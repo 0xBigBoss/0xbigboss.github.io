@@ -159,8 +159,11 @@ export const components = {
         borderLeftWidth: 3,
         borderLeftColor: colors.gold,
         paddingLeft: 20,
-        marginVertical: 24,
+        paddingVertical: 4,
+        marginVertical: 16,
         marginLeft: 0,
+        // @ts-expect-error web style
+        alignSelf: 'flex-start',
       }}
     >
       <Text
@@ -168,7 +171,7 @@ export const components = {
           fontStyle: 'italic',
           color: colors.textPrimary,
           fontSize: 18,
-          lineHeight: 30,
+          lineHeight: 28,
           // @ts-expect-error web style
           fontFamily: 'Georgia, serif',
         }}
