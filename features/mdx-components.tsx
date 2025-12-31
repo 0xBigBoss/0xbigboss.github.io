@@ -154,31 +154,20 @@ export const components = {
     </View>
   ),
   blockquote: ({ children }: { children: ReactNode }) => (
-    <View
+    <blockquote
       style={{
-        borderLeftWidth: 3,
-        borderLeftColor: colors.gold,
+        borderLeft: `3px solid ${colors.gold}`,
         paddingLeft: 20,
-        paddingVertical: 4,
-        marginVertical: 16,
-        marginLeft: 0,
-        // @ts-expect-error web style
-        alignSelf: 'flex-start',
+        margin: '16px 0',
+        fontStyle: 'italic',
+        color: colors.textPrimary,
+        fontSize: 18,
+        lineHeight: '28px',
+        fontFamily: 'Georgia, serif',
       }}
     >
-      <Text
-        style={{
-          fontStyle: 'italic',
-          color: colors.textPrimary,
-          fontSize: 18,
-          lineHeight: 28,
-          // @ts-expect-error web style
-          fontFamily: 'Georgia, serif',
-        }}
-      >
-        {children}
-      </Text>
-    </View>
+      {children}
+    </blockquote>
   ),
   hr: () => (
     <View
