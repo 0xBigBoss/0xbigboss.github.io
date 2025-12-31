@@ -1,6 +1,15 @@
 import { Text, View } from 'react-native'
 import type { ComponentProps, ReactNode } from 'react'
 
+// Gothic color palette
+const colors = {
+  gold: '#c9a227',
+  textPrimary: '#e8e8f0',
+  textSecondary: '#a0a0b0',
+  codeBg: '#12121f',
+  cardBorder: '#2a2a4a',
+}
+
 type TextProps = ComponentProps<typeof Text>
 
 function Heading({
@@ -9,7 +18,7 @@ function Heading({
   ...props
 }: TextProps & { children: ReactNode }) {
   return (
-    <Text {...props} style={[{ fontWeight: 'bold' }, style]}>
+    <Text {...props} style={[{ fontWeight: '600', color: colors.textPrimary }, style]}>
       {children}
     </Text>
   )
@@ -17,37 +26,87 @@ function Heading({
 
 export const components = {
   h1: ({ children }: { children: ReactNode }) => (
-    <Heading style={{ fontSize: 32, marginBottom: 16, marginTop: 24 }}>
+    <Heading
+      style={{
+        fontSize: 32,
+        marginBottom: 16,
+        marginTop: 32,
+        // @ts-expect-error web style
+        fontFamily: 'Georgia, serif',
+        letterSpacing: 1,
+      }}
+    >
       {children}
     </Heading>
   ),
   h2: ({ children }: { children: ReactNode }) => (
-    <Heading style={{ fontSize: 24, marginBottom: 12, marginTop: 20 }}>
+    <Heading
+      style={{
+        fontSize: 24,
+        marginBottom: 12,
+        marginTop: 28,
+        // @ts-expect-error web style
+        fontFamily: 'Georgia, serif',
+      }}
+    >
       {children}
     </Heading>
   ),
   h3: ({ children }: { children: ReactNode }) => (
-    <Heading style={{ fontSize: 20, marginBottom: 10, marginTop: 16 }}>
+    <Heading
+      style={{
+        fontSize: 20,
+        marginBottom: 10,
+        marginTop: 24,
+        // @ts-expect-error web style
+        fontFamily: 'Georgia, serif',
+      }}
+    >
       {children}
     </Heading>
   ),
   p: ({ children }: { children: ReactNode }) => (
-    <Text style={{ fontSize: 16, lineHeight: 24, marginBottom: 12 }}>
+    <Text
+      style={{
+        fontSize: 17,
+        lineHeight: 28,
+        marginBottom: 16,
+        color: colors.textSecondary,
+        // @ts-expect-error web style
+        fontFamily: 'Georgia, serif',
+      }}
+    >
       {children}
     </Text>
   ),
   ul: ({ children }: { children: ReactNode }) => (
-    <View style={{ marginBottom: 12, paddingLeft: 20 }}>{children}</View>
+    <View style={{ marginBottom: 16, paddingLeft: 20 }}>{children}</View>
   ),
   li: ({ children }: { children: ReactNode }) => (
-    <View style={{ flexDirection: 'row', marginBottom: 4 }}>
-      <Text style={{ marginRight: 8 }}>•</Text>
-      <Text style={{ flex: 1, fontSize: 16, lineHeight: 24 }}>{children}</Text>
+    <View style={{ flexDirection: 'row', marginBottom: 8 }}>
+      <Text style={{ marginRight: 12, color: colors.gold }}>•</Text>
+      <Text
+        style={{
+          flex: 1,
+          fontSize: 17,
+          lineHeight: 28,
+          color: colors.textSecondary,
+          // @ts-expect-error web style
+          fontFamily: 'Georgia, serif',
+        }}
+      >
+        {children}
+      </Text>
     </View>
   ),
   a: ({ href, children }: { href?: string; children: ReactNode }) => (
     <Text
-      style={{ color: '#0066cc', textDecorationLine: 'underline' }}
+      style={{
+        color: colors.gold,
+        // @ts-expect-error web style
+        textDecorationLine: 'underline',
+        textDecorationColor: colors.gold + '60',
+      }}
       // @ts-expect-error - web-only prop
       href={href}
       accessibilityRole="link"
@@ -59,11 +118,12 @@ export const components = {
     <Text
       style={{
         fontFamily: 'monospace',
-        backgroundColor: '#f4f4f4',
-        paddingHorizontal: 4,
+        backgroundColor: colors.codeBg,
+        color: colors.gold,
+        paddingHorizontal: 6,
         paddingVertical: 2,
         borderRadius: 4,
-        fontSize: 14,
+        fontSize: 15,
       }}
     >
       {children}
@@ -72,10 +132,12 @@ export const components = {
   pre: ({ children }: { children: ReactNode }) => (
     <View
       style={{
-        backgroundColor: '#1e1e1e',
-        padding: 16,
+        backgroundColor: colors.codeBg,
+        padding: 20,
         borderRadius: 8,
-        marginBottom: 16,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: colors.cardBorder,
         overflow: 'hidden',
       }}
     >
@@ -83,8 +145,8 @@ export const components = {
         style={{
           fontFamily: 'monospace',
           fontSize: 14,
-          color: '#d4d4d4',
-          lineHeight: 20,
+          color: colors.textSecondary,
+          lineHeight: 22,
         }}
       >
         {children}
@@ -94,22 +156,48 @@ export const components = {
   blockquote: ({ children }: { children: ReactNode }) => (
     <View
       style={{
-        borderLeftWidth: 4,
-        borderLeftColor: '#ddd',
-        paddingLeft: 16,
-        marginBottom: 12,
+        borderLeftWidth: 3,
+        borderLeftColor: colors.gold,
+        paddingLeft: 20,
+        marginVertical: 24,
+        marginLeft: 0,
       }}
     >
-      <Text style={{ fontStyle: 'italic', color: '#666' }}>{children}</Text>
+      <Text
+        style={{
+          fontStyle: 'italic',
+          color: colors.textPrimary,
+          fontSize: 18,
+          lineHeight: 30,
+          // @ts-expect-error web style
+          fontFamily: 'Georgia, serif',
+        }}
+      >
+        {children}
+      </Text>
     </View>
   ),
   hr: () => (
     <View
       style={{
-        height: 1,
-        backgroundColor: '#ddd',
-        marginVertical: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 32,
+        gap: 16,
       }}
-    />
+    >
+      <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
+      <View
+        style={{
+          width: 6,
+          height: 6,
+          backgroundColor: colors.gold,
+          // @ts-expect-error web style
+          transform: 'rotate(45deg)',
+          opacity: 0.6,
+        }}
+      />
+      <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
+    </View>
   ),
 }
