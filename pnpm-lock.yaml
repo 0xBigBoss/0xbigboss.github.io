@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@react-navigation/core':
+        specifier: ^7.13.7
+        version: 7.13.7(react@19.1.0)
       '@react-navigation/native':
         specifier: ~7.1.19
         version: 7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)
