@@ -1,5 +1,5 @@
-import { Text, View, Pressable } from 'react-native'
-import type { ComponentProps, ReactNode } from 'react'
+import { Text, XStack, YStack } from '~/features/ui'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 
 // Gothic color palette
@@ -9,20 +9,6 @@ const colors = {
   textSecondary: '#a0a0b0',
   codeBg: '#12121f',
   cardBorder: '#2a2a4a',
-}
-
-type TextProps = ComponentProps<typeof Text>
-
-function Heading({
-  children,
-  style,
-  ...props
-}: TextProps & { children: ReactNode }) {
-  return (
-    <Text {...props} style={[{ fontWeight: '600', color: colors.textPrimary }, style]}>
-      {children}
-    </Text>
-  )
 }
 
 // CollapsibleImage - for tall screenshots that can be expanded
@@ -36,7 +22,7 @@ function CollapsibleImage({ src, alt, maxHeight = 400 }: CollapsibleImageProps) 
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div style={{ marginBottom: 20, marginTop: 8 }}>
+    <YStack marginBottom={20} marginTop={8}>
       <div
         style={{
           position: 'relative',
@@ -116,19 +102,17 @@ function CollapsibleImage({ src, alt, maxHeight = 400 }: CollapsibleImageProps) 
       </div>
       {/* Caption */}
       {alt && (
-        <div
-          style={{
-            fontSize: 13,
-            color: colors.textSecondary,
-            fontStyle: 'italic',
-            marginTop: 8,
-            textAlign: 'center',
-          }}
+        <Text
+          fontSize={13}
+          color={colors.textSecondary as any}
+          fontStyle="italic"
+          marginTop={8}
+          ta="center"
         >
           {alt}
-        </div>
+        </Text>
       )}
-    </div>
+    </YStack>
   )
 }
 
@@ -147,14 +131,13 @@ function TranscriptViewer({ title, tool, date, summary, children }: TranscriptVi
   const toolLabel = tool === 'claude-code' ? 'Claude Code' : tool === 'codex' ? 'Codex CLI' : tool
 
   return (
-    <div
-      style={{
-        marginBottom: 16,
-        border: `1px solid ${colors.cardBorder}`,
-        borderRadius: 8,
-        overflow: 'hidden',
-        backgroundColor: colors.codeBg,
-      }}
+    <YStack
+      marginBottom={16}
+      borderWidth={1}
+      borderColor={colors.cardBorder as any}
+      borderRadius={8 as any}
+      overflow="hidden"
+      backgroundColor={colors.codeBg as any}
     >
       {/* Header - always visible */}
       <div
@@ -169,36 +152,33 @@ function TranscriptViewer({ title, tool, date, summary, children }: TranscriptVi
         }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-            <span
-              style={{
-                fontSize: 15,
-                fontWeight: '600',
-                color: colors.textPrimary,
-                fontFamily: 'monospace',
-              }}
+          <XStack alignItems="center" gap={12} marginBottom={4}>
+            <Text
+              fontSize={15}
+              fontWeight="600"
+              color={colors.textPrimary as any}
+              fontFamily={'monospace' as any}
             >
               {title}
-            </span>
+            </Text>
             {toolLabel && (
-              <span
-                style={{
-                  backgroundColor: colors.gold + '20',
-                  padding: '2px 8px',
-                  borderRadius: 4,
-                  fontSize: 11,
-                  color: colors.gold,
-                  fontFamily: 'monospace',
-                }}
+              <Text
+                backgroundColor={(colors.gold + '20') as any}
+                paddingHorizontal={8}
+                paddingVertical={2}
+                borderRadius={4 as any}
+                fontSize={11}
+                color={colors.gold as any}
+                fontFamily={'monospace' as any}
               >
                 {toolLabel}
-              </span>
+              </Text>
             )}
-          </div>
+          </XStack>
           {date && (
-            <div style={{ fontSize: 12, color: colors.textSecondary, marginBottom: 4 }}>
+            <Text fontSize={12} color={colors.textSecondary as any} marginBottom={4}>
               {date}
-            </div>
+            </Text>
           )}
           {summary && (
             <div
@@ -255,7 +235,7 @@ function TranscriptViewer({ title, tool, date, summary, children }: TranscriptVi
           </pre>
         </div>
       )}
-    </div>
+    </YStack>
   )
 }
 
@@ -270,37 +250,25 @@ function TranscriptGroup({ title, count, children }: TranscriptGroupProps) {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div style={{ marginBottom: 24 }}>
-      <div
-        onClick={() => setExpanded(!expanded)}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 12,
-          cursor: 'pointer',
-        }}
+    <YStack marginBottom={24}>
+      <XStack
+        alignItems="center"
+        marginBottom={12}
+        cursor="pointer"
+        onPress={() => setExpanded(!expanded)}
       >
-        <span
-          style={{
-            fontSize: 18,
-            fontWeight: '600',
-            color: colors.textPrimary,
-            fontFamily: 'Georgia, serif',
-          }}
+        <Text
+          fontSize={18}
+          fontWeight="600"
+          color={colors.textPrimary as any}
+          fontFamily={'Georgia, serif' as any}
         >
           {title}
-        </span>
+        </Text>
         {count !== undefined && (
-          <span
-            style={{
-              fontSize: 14,
-              color: colors.gold,
-              marginLeft: 8,
-            }}
-          >
+          <Text fontSize={14} color={colors.gold as any} marginLeft={8}>
             ({count})
-          </span>
+          </Text>
         )}
         <span
           style={{
@@ -314,140 +282,121 @@ function TranscriptGroup({ title, count, children }: TranscriptGroupProps) {
         >
           ▼
         </span>
-      </div>
-      {expanded && <div>{children}</div>}
-    </div>
+      </XStack>
+      {expanded && <YStack>{children}</YStack>}
+    </YStack>
   )
 }
 
 export const components = {
   h1: ({ children }: { children: ReactNode }) => (
-    <Heading
-      style={{
-        fontSize: 32,
-        marginBottom: 16,
-        marginTop: 32,
-        // @ts-expect-error web style
-        fontFamily: 'Georgia, serif',
-        letterSpacing: 1,
-      }}
+    <Text
+      fontSize={32}
+      fontWeight="600"
+      color={colors.textPrimary}
+      marginBottom={16}
+      marginTop={32}
+      fontFamily={'Georgia, serif' as any}
+      letterSpacing={1}
     >
       {children}
-    </Heading>
+    </Text>
   ),
   h2: ({ children }: { children: ReactNode }) => (
-    <Heading
-      style={{
-        fontSize: 24,
-        marginBottom: 12,
-        marginTop: 28,
-        // @ts-expect-error web style
-        fontFamily: 'Georgia, serif',
-      }}
+    <Text
+      fontSize={24}
+      fontWeight="600"
+      color={colors.textPrimary}
+      marginBottom={12}
+      marginTop={28}
+      fontFamily={'Georgia, serif' as any}
     >
       {children}
-    </Heading>
+    </Text>
   ),
   h3: ({ children }: { children: ReactNode }) => (
-    <Heading
-      style={{
-        fontSize: 20,
-        marginBottom: 10,
-        marginTop: 24,
-        // @ts-expect-error web style
-        fontFamily: 'Georgia, serif',
-      }}
+    <Text
+      fontSize={20}
+      fontWeight="600"
+      color={colors.textPrimary}
+      marginBottom={10}
+      marginTop={24}
+      fontFamily={'Georgia, serif' as any}
     >
       {children}
-    </Heading>
+    </Text>
   ),
   p: ({ children }: { children: ReactNode }) => (
     <Text
-      style={{
-        fontSize: 17,
-        lineHeight: 28,
-        marginBottom: 16,
-        color: colors.textSecondary,
-        // @ts-expect-error web style
-        fontFamily: 'Georgia, serif',
-      }}
+      fontSize={17}
+      lineHeight={28}
+      marginBottom={16}
+      color={colors.textSecondary as any}
+      fontFamily={'Georgia, serif' as any}
     >
       {children}
     </Text>
   ),
   ul: ({ children }: { children: ReactNode }) => (
-    <View style={{ marginBottom: 16, paddingLeft: 20 }}>{children}</View>
+    <YStack marginBottom={16} paddingLeft={20}>
+      {children}
+    </YStack>
   ),
   li: ({ children }: { children: ReactNode }) => (
-    <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-      <Text style={{ marginRight: 12, color: colors.gold }}>•</Text>
+    <XStack marginBottom={8}>
+      <Text marginRight={12} color={colors.gold as any}>
+        •
+      </Text>
       <Text
-        style={{
-          flex: 1,
-          fontSize: 17,
-          lineHeight: 28,
-          color: colors.textSecondary,
-          // @ts-expect-error web style
-          fontFamily: 'Georgia, serif',
-        }}
+        flex={1}
+        fontSize={17}
+        lineHeight={28}
+        color={colors.textSecondary as any}
+        fontFamily={'Georgia, serif' as any}
       >
         {children}
       </Text>
-    </View>
+    </XStack>
   ),
   a: ({ href, children }: { href?: string; children: ReactNode }) => (
-    <Text
+    <a
+      href={href}
       style={{
         color: colors.gold,
-        // @ts-expect-error web style
-        textDecorationLine: 'underline',
+        textDecoration: 'underline',
         textDecorationColor: colors.gold + '60',
       }}
-      // @ts-expect-error - web-only prop
-      href={href}
-      accessibilityRole="link"
     >
       {children}
-    </Text>
+    </a>
   ),
   code: ({ children }: { children: ReactNode }) => (
     <Text
-      style={{
-        fontFamily: 'monospace',
-        backgroundColor: colors.codeBg,
-        color: colors.gold,
-        paddingHorizontal: 6,
-        paddingVertical: 2,
-        borderRadius: 4,
-        fontSize: 15,
-      }}
+      fontFamily={'monospace' as any}
+      backgroundColor={colors.codeBg as any}
+      color={colors.gold as any}
+      paddingHorizontal={6}
+      paddingVertical={2}
+      borderRadius={4 as any}
+      fontSize={15}
     >
       {children}
     </Text>
   ),
   pre: ({ children }: { children: ReactNode }) => (
-    <View
-      style={{
-        backgroundColor: colors.codeBg,
-        padding: 20,
-        borderRadius: 8,
-        marginBottom: 20,
-        borderWidth: 1,
-        borderColor: colors.cardBorder,
-        overflow: 'hidden',
-      }}
+    <YStack
+      backgroundColor={colors.codeBg as any}
+      padding={20}
+      borderRadius={8 as any}
+      marginBottom={20}
+      borderWidth={1}
+      borderColor={colors.cardBorder as any}
+      overflow="hidden"
     >
-      <Text
-        style={{
-          fontFamily: 'monospace',
-          fontSize: 14,
-          color: colors.textSecondary,
-          lineHeight: 22,
-        }}
-      >
+      <Text fontFamily={'monospace' as any} fontSize={14} color={colors.textSecondary as any} lineHeight={22}>
         {children}
       </Text>
-    </View>
+    </YStack>
   ),
   blockquote: ({ children }: { children: ReactNode }) => (
     <blockquote
@@ -466,31 +415,21 @@ export const components = {
     </blockquote>
   ),
   hr: () => (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 32,
-        gap: 16,
-      }}
-    >
-      <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
-      <View
-        style={{
-          width: 6,
-          height: 6,
-          backgroundColor: colors.gold,
-          // @ts-expect-error web style
-          transform: 'rotate(45deg)',
-          opacity: 0.6,
-        }}
+    <XStack alignItems="center" marginVertical={32} gap={16}>
+      <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.3} />
+      <YStack
+        width={6}
+        height={6}
+        backgroundColor={colors.gold as any}
+        rotate="45deg"
+        opacity={0.6}
       />
-      <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
-    </View>
+      <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.3} />
+    </XStack>
   ),
   // Images - constrained to content width with optional caption
   img: ({ src, alt }: { src?: string; alt?: string }) => (
-    <View style={{ marginBottom: 20, marginTop: 8 }}>
+    <YStack marginBottom={20} marginTop={8}>
       <img
         src={src}
         alt={alt || ''}
@@ -503,18 +442,16 @@ export const components = {
       />
       {alt && (
         <Text
-          style={{
-            fontSize: 13,
-            color: colors.textSecondary,
-            fontStyle: 'italic',
-            marginTop: 8,
-            textAlign: 'center',
-          }}
+          fontSize={13}
+          color={colors.textSecondary as any}
+          fontStyle="italic"
+          marginTop={8}
+          ta="center"
         >
           {alt}
         </Text>
       )}
-    </View>
+    </YStack>
   ),
   // Custom components for transcripts and images
   TranscriptViewer,
