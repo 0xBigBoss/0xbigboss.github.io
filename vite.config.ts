@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { one } from 'one/vite'
+import { tamaguiPlugin } from '@tamagui/vite-plugin'
 
 export default defineConfig({
   ssr: {
@@ -11,6 +12,11 @@ export default defineConfig({
       web: {
         defaultRenderMode: 'ssg',
       },
+    }),
+    tamaguiPlugin({
+      optimize: true,
+      components: ['tamagui'],
+      config: './config/tamagui.config.ts',
     }),
   ],
 })

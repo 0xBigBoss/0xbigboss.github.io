@@ -14,6 +14,12 @@
     "@react-navigation/elements": "^2.9.3",
     "@react-navigation/native": "~7.1.19",
     "@react-navigation/native-stack": "^7.9.0",
+    "@tamagui/config": "^1.142.0",
+    "@tamagui/core": "^1.142.0",
+    "@tamagui/stacks": "^1.142.0",
+    "@tamagui/vite-plugin": "^1.142.0",
+    "@tamagui/web": "^1.142.0",
+    "@vxrn/color-scheme": "^1.2.42",
     "@vxrn/mdx": "^1.2.42",
     "escape-string-regexp": "^5.0.0",
     "expo": "54.0.22",
@@ -28,9 +34,11 @@
     "react-native-safe-area-context": "~5.6.1",
     "react-native-screens": "~4.16.0",
     "react-native-web": "^0.21.2",
-    "react-native-worklets": "0.5.1"
+    "react-native-worklets": "0.5.1",
+    "tamagui": "^1.142.0"
   },
   "devDependencies": {
+    "@types/node": "^25.0.3",
     "@types/react": "^19.2.2",
     "sharp": "^0.34.5",
     "typescript": "~5.7.3",
