@@ -1,15 +1,15 @@
-import { Text, View, Pressable } from 'react-native'
+import { Text, XStack, YStack } from '~/features/ui'
 import { Link } from 'one'
 
 // Gothic color palette (shared with index)
 const colors = {
-  background: '#0a0a12',
-  backgroundGradient: 'linear-gradient(180deg, #0a0a12 0%, #141428 50%, #0a0a12 100%)',
-  gold: '#c9a227',
-  textPrimary: '#e8e8f0',
-  textSecondary: '#a0a0b0',
-  cardBg: '#12121f',
-  cardBorder: '#2a2a4a',
+  background: '#0a0a12' as const,
+  backgroundGradient: 'linear-gradient(180deg, #0a0a12 0%, #141428 50%, #0a0a12 100%)' as const,
+  gold: '#c9a227' as const,
+  textPrimary: '#e8e8f0' as const,
+  textSecondary: '#a0a0b0' as const,
+  cardBg: '#12121f' as const,
+  cardBorder: '#2a2a4a' as const,
 }
 
 type Project = {
@@ -48,94 +48,80 @@ function ProjectCard({ project }: { project: Project }) {
       rel="noopener noreferrer"
       style={{ textDecoration: 'none' }}
     >
-      <View
+      <div
         style={{
           backgroundColor: colors.cardBg,
-          borderWidth: 1,
-          borderColor: colors.cardBorder,
+          border: `1px solid ${colors.cardBorder}`,
           borderRadius: 8,
           padding: 24,
           marginBottom: 20,
-          // @ts-expect-error web style
           transition: 'all 0.3s ease',
           cursor: 'pointer',
         }}
-        // @ts-expect-error web props
-        onMouseEnter={(e: any) => {
+        onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = colors.gold
           e.currentTarget.style.boxShadow = `0 0 20px ${colors.gold}20`
         }}
-        onMouseLeave={(e: any) => {
+        onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = colors.cardBorder
           e.currentTarget.style.boxShadow = 'none'
         }}
       >
         <Text
-          style={{
-            fontSize: 24,
-            fontWeight: '600',
-            color: colors.textPrimary,
-            marginBottom: 8,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-          }}
+          fontSize={24}
+          fontWeight="600"
+          color={colors.textPrimary as any}
+          marginBottom={8}
+          fontFamily={'Georgia, serif' as any}
         >
           {project.title}
         </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: colors.textSecondary,
-            lineHeight: 24,
-            marginBottom: 16,
-          }}
-        >
+        <Text fontSize={16} color={colors.textSecondary as any} lineHeight={24} marginBottom={16}>
           {project.description}
         </Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        <XStack flexWrap="wrap" gap={8}>
           {project.tags.map((tag) => (
-            <View
+            <YStack
               key={tag}
-              style={{
-                backgroundColor: `${colors.gold}20`,
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                borderRadius: 4,
-              }}
+              backgroundColor={(colors.gold + '20') as any}
+              paddingHorizontal={12}
+              paddingVertical={4}
+              borderRadius={4 as any}
             >
-              <Text style={{ color: colors.gold, fontSize: 12, fontWeight: '500' }}>
+              <Text color={colors.gold as any} fontSize={12} fontWeight="500">
                 {tag}
               </Text>
-            </View>
+            </YStack>
           ))}
-        </View>
-      </View>
+        </XStack>
+      </div>
     </a>
   )
 }
 
 export default function Projects() {
   return (
-    <View
+    <div
       style={{
         flex: 1,
         minHeight: '100vh',
         backgroundColor: colors.background,
-        paddingVertical: 60,
-        paddingHorizontal: 20,
+        paddingTop: 60,
+        paddingBottom: 60,
+        paddingLeft: 20,
+        paddingRight: 20,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       {/* Hero background image */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           height: 400,
-          // @ts-expect-error web style
           backgroundImage: 'url(/images/heroes/projects.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -143,54 +129,46 @@ export default function Projects() {
         }}
       />
       {/* Gradient overlay */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          // @ts-expect-error web style
-          background: 'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.9) 300px, rgba(10,10,18,1) 400px)',
+          background:
+            'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.9) 300px, rgba(10,10,18,1) 400px)',
           pointerEvents: 'none',
         }}
       />
-      <View style={{ maxWidth: 800, marginHorizontal: 'auto', width: '100%', zIndex: 1 }}>
+      <YStack maxWidth={800} marginHorizontal="auto" width="100%" zIndex={1}>
         {/* Back link */}
-        <Link href="/" asChild>
-          <Pressable style={{ marginBottom: 40 }}>
-            <Text style={{ color: colors.gold, fontSize: 14, letterSpacing: 2 }}>
-              ← BACK
-            </Text>
-          </Pressable>
+        <Link href={'/' as any}>
+          <Text color={colors.gold as any} fontSize={14} letterSpacing={2} marginBottom={40}>
+            ← BACK
+          </Text>
         </Link>
 
         {/* Page title */}
         <Text
-          style={{
-            fontSize: 48,
-            fontWeight: '300',
-            color: colors.textPrimary,
-            letterSpacing: 6,
-            textTransform: 'uppercase',
-            marginBottom: 16,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-          }}
+          fontSize={48}
+          fontWeight="300"
+          color={colors.textPrimary as any}
+          letterSpacing={6}
+          textTransform="uppercase"
+          marginBottom={16}
+          fontFamily={'Georgia, serif' as any}
         >
           Projects
         </Text>
 
         {/* Subtitle */}
         <Text
-          style={{
-            fontSize: 16,
-            color: colors.textSecondary,
-            marginBottom: 48,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-            fontStyle: 'italic',
-          }}
+          fontSize={16}
+          color={colors.textSecondary as any}
+          marginBottom={48}
+          fontFamily={'Georgia, serif' as any}
+          fontStyle="italic"
         >
           Building tools and products that matter.
         </Text>
@@ -201,7 +179,7 @@ export default function Projects() {
         ))}
 
         {/* More on GitHub */}
-        <View style={{ alignItems: 'center', marginTop: 40 }}>
+        <YStack marginTop={40} alignItems="center">
           <a
             href="https://github.com/0xbigboss"
             target="_blank"
@@ -215,8 +193,8 @@ export default function Projects() {
           >
             View more on GitHub →
           </a>
-        </View>
-      </View>
-    </View>
+        </YStack>
+      </YStack>
+    </div>
   )
 }

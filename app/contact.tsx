@@ -1,4 +1,4 @@
-import { Text, View, Pressable } from 'react-native'
+import { Text, XStack, YStack } from '~/features/ui'
 import { Link } from 'one'
 
 // Gothic color palette (shared with index)
@@ -75,85 +75,70 @@ function ContactCard({ link }: { link: ContactLink }) {
       rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
       style={{ textDecoration: 'none' }}
     >
-      <View
-        style={{
-          backgroundColor: colors.cardBg,
-          borderWidth: 1,
-          borderColor: colors.cardBorder,
-          borderRadius: 8,
-          padding: 24,
-          marginBottom: 16,
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 20,
-          // @ts-expect-error web style
-          transition: 'all 0.3s ease',
-          cursor: 'pointer',
-        }}
-        // @ts-expect-error web props
-        onMouseEnter={(e: any) => {
-          e.currentTarget.style.borderColor = colors.gold
-          e.currentTarget.style.boxShadow = `0 0 20px ${colors.gold}20`
-        }}
-        onMouseLeave={(e: any) => {
-          e.currentTarget.style.borderColor = colors.cardBorder
-          e.currentTarget.style.boxShadow = 'none'
+      <XStack
+        backgroundColor={colors.cardBg as any}
+        borderWidth={1}
+        borderColor={colors.cardBorder as any}
+        borderRadius={8 as any}
+        padding={24}
+        marginBottom={16}
+        alignItems="center"
+        gap={20}
+        cursor="pointer"
+        hoverStyle={{
+          borderColor: colors.gold as any,
         }}
       >
-        <View style={{ color: colors.gold }}>
+        <YStack style={{ color: colors.gold }}>
           {link.icon}
-        </View>
-        <View style={{ flex: 1 }}>
+        </YStack>
+        <YStack flex={1}>
           <Text
-            style={{
-              fontSize: 12,
-              color: colors.textSecondary,
-              textTransform: 'uppercase',
-              letterSpacing: 2,
-              marginBottom: 4,
-            }}
+            fontSize={12}
+            color={colors.textSecondary as any}
+            textTransform="uppercase"
+            letterSpacing={2}
+            marginBottom={4}
           >
             {link.label}
           </Text>
           <Text
-            style={{
-              fontSize: 18,
-              color: colors.textPrimary,
-              // @ts-expect-error web style
-              fontFamily: 'Georgia, serif',
-            }}
+            fontSize={18}
+            color={colors.textPrimary as any}
+            fontFamily={'Georgia, serif' as any}
           >
             {link.value}
           </Text>
-        </View>
-        <Text style={{ color: colors.gold, fontSize: 20 }}>→</Text>
-      </View>
+        </YStack>
+        <Text color={colors.gold as any} fontSize={20}>→</Text>
+      </XStack>
     </a>
   )
 }
 
 export default function Contact() {
   return (
-    <View
+    <div
       style={{
         flex: 1,
         minHeight: '100vh',
         backgroundColor: colors.background,
-        paddingVertical: 60,
-        paddingHorizontal: 20,
+        paddingTop: 60,
+        paddingBottom: 60,
+        paddingLeft: 20,
+        paddingRight: 20,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       {/* Hero background image */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           height: 400,
-          // @ts-expect-error web style
           backgroundImage: 'url(/images/heroes/contact.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -161,54 +146,45 @@ export default function Contact() {
         }}
       />
       {/* Gradient overlay */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          // @ts-expect-error web style
           background: 'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.9) 300px, rgba(10,10,18,1) 400px)',
           pointerEvents: 'none',
         }}
       />
-      <View style={{ maxWidth: 600, marginHorizontal: 'auto', width: '100%', zIndex: 1 }}>
+      <YStack maxWidth={600} marginHorizontal="auto" width="100%" zIndex={1}>
         {/* Back link */}
-        <Link href="/" asChild>
-          <Pressable style={{ marginBottom: 40 }}>
-            <Text style={{ color: colors.gold, fontSize: 14, letterSpacing: 2 }}>
-              ← BACK
-            </Text>
-          </Pressable>
+        <Link href={'/' as any}>
+          <Text color={colors.gold as any} fontSize={14} letterSpacing={2} marginBottom={40}>
+            ← BACK
+          </Text>
         </Link>
 
         {/* Page title */}
         <Text
-          style={{
-            fontSize: 48,
-            fontWeight: '300',
-            color: colors.textPrimary,
-            letterSpacing: 6,
-            textTransform: 'uppercase',
-            marginBottom: 16,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-          }}
+          fontSize={48}
+          fontWeight="300"
+          color={colors.textPrimary as any}
+          letterSpacing={6}
+          textTransform="uppercase"
+          marginBottom={16}
+          fontFamily={'Georgia, serif' as any}
         >
           Contact
         </Text>
 
         {/* Subtitle */}
         <Text
-          style={{
-            fontSize: 16,
-            color: colors.textSecondary,
-            marginBottom: 48,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-            fontStyle: 'italic',
-          }}
+          fontSize={16}
+          color={colors.textSecondary as any}
+          marginBottom={48}
+          fontFamily={'Georgia, serif' as any}
+          fontStyle="italic"
         >
           Let's build something together.
         </Text>
@@ -219,22 +195,19 @@ export default function Contact() {
         ))}
 
         {/* Additional note */}
-        <View style={{ marginTop: 48, alignItems: 'center' }}>
+        <YStack marginTop={48} alignItems="center">
           <Text
-            style={{
-              fontSize: 14,
-              color: colors.textSecondary,
-              textAlign: 'center',
-              lineHeight: 22,
-              // @ts-expect-error web style
-              fontFamily: 'Georgia, serif',
-            }}
+            fontSize={14}
+            color={colors.textSecondary as any}
+            ta="center"
+            lineHeight={22}
+            fontFamily={'Georgia, serif' as any}
           >
             For project inquiries, collaborations, or just to say hello —{'\n'}
             DMs are open.
           </Text>
-        </View>
-      </View>
-    </View>
+        </YStack>
+      </YStack>
+    </div>
   )
 }
