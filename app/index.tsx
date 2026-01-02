@@ -1,13 +1,13 @@
-import { Text, View, Pressable, Image } from 'react-native'
+import { Text, XStack, YStack } from '~/features/ui'
 import { Link } from 'one'
 
 // Gothic color palette
 const colors = {
-  background: '#0a0a12',
-  backgroundGradient: 'linear-gradient(180deg, #0a0a12 0%, #141428 50%, #0a0a12 100%)',
-  gold: '#c9a227',
-  textPrimary: '#e8e8f0',
-  textSecondary: '#a0a0b0',
+  background: '#0a0a12' as const,
+  backgroundGradient: 'linear-gradient(180deg, #0a0a12 0%, #141428 50%, #0a0a12 100%)' as const,
+  gold: '#c9a227' as const,
+  textPrimary: '#e8e8f0' as const,
+  textSecondary: '#a0a0b0' as const,
 }
 
 // Image paths
@@ -33,57 +33,48 @@ function StainedGlassWindow({
   image: string
 }) {
   return (
-    <Link href={href} asChild>
-      <Pressable
-        style={({ pressed, hovered }) => ({
-          alignItems: 'center',
-          opacity: pressed ? 0.8 : 1,
-          // @ts-expect-error web style
-          transform: hovered ? 'scale(1.05)' : 'scale(1)',
-          transition: 'all 0.3s ease',
-        })}
+    <Link href={href as any}>
+      <YStack
+        alignItems="center"
+        cursor="pointer"
+        hoverStyle={{
+          scale: 1.05,
+        }}
       >
-        {({ hovered }) => (
-          <View style={{ alignItems: 'center' }}>
-            {/* Stained glass window image */}
-            <View
-              style={{
-                width: 180,
-                height: 240,
-                // @ts-expect-error web style
-                filter: hovered ? 'brightness(1.2) drop-shadow(0 0 20px rgba(201, 162, 39, 0.5))' : 'brightness(1)',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              <Image
-                source={{ uri: image }}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  // @ts-expect-error web style
-                  objectFit: 'contain',
-                }}
-              />
-            </View>
-            {/* Title below window */}
-            <Text
-              style={{
-                color: hovered ? colors.gold : colors.textPrimary,
-                fontSize: 14,
-                fontWeight: '600',
-                letterSpacing: 3,
-                textTransform: 'uppercase',
-                marginTop: 16,
-                // @ts-expect-error web style
-                fontFamily: 'Georgia, serif',
-                transition: 'color 0.3s ease',
-              }}
-            >
-              {title}
-            </Text>
-          </View>
-        )}
-      </Pressable>
+        {/* Stained glass window image */}
+        <YStack style={{ width: 280 }}>
+          <img
+            src={image}
+            alt={title}
+            style={{
+              width: '100%',
+              height: 'auto',
+              transition: 'filter 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.filter = 'drop-shadow(0 0 20px rgba(201, 162, 39, 0.5))'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.filter = 'none'
+            }}
+          />
+        </YStack>
+        {/* Title below window */}
+        <Text
+          color={colors.textPrimary as any}
+          fontSize={14}
+          fontWeight="600"
+          letterSpacing={3}
+          textTransform="uppercase"
+          marginTop={24}
+          fontFamily={'Georgia, serif' as any}
+          hoverStyle={{
+            color: colors.gold as any,
+          }}
+        >
+          {title}
+        </Text>
+      </YStack>
     </Link>
   )
 }
@@ -130,28 +121,30 @@ function GitHubIcon() {
 
 export default function Index() {
   return (
-    <View
+    <div
       style={{
         flex: 1,
         minHeight: '100vh',
         backgroundColor: colors.background,
+        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 60,
-        paddingHorizontal: 20,
+        paddingTop: 60,
+        paddingBottom: 60,
+        paddingLeft: 20,
+        paddingRight: 20,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       {/* Hero background image */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          // @ts-expect-error web style
           backgroundImage: `url(${images.heroBackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
@@ -160,14 +153,13 @@ export default function Index() {
       />
 
       {/* Light rays overlay */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           height: '70%',
-          // @ts-expect-error web style
           backgroundImage: `url(${images.lightRays})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
@@ -177,65 +169,55 @@ export default function Index() {
       />
 
       {/* Gradient overlay for depth */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          // @ts-expect-error web style
           background: 'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.8) 60%, rgba(10,10,18,0.95) 100%)',
           pointerEvents: 'none',
         }}
       />
 
       {/* Main content */}
-      <View style={{ alignItems: 'center', zIndex: 1, maxWidth: 900, width: '100%' }}>
+      <YStack alignItems="center" zIndex={1} maxWidth={1100} width="100%">
         {/* Header / Name */}
-        <View style={{ alignItems: 'center', marginBottom: 60 }}>
+        <YStack alignItems="center" marginBottom={60}>
           <Text
-            style={{
-              fontSize: 56,
-              fontWeight: '300',
-              color: colors.textPrimary,
-              letterSpacing: 8,
-              textTransform: 'uppercase',
-              // @ts-expect-error web style
-              fontFamily: 'Georgia, serif',
-              textShadowColor: 'rgba(0,0,0,0.8)',
-              textShadowOffset: { width: 0, height: 4 },
-              textShadowRadius: 12,
-              textAlign: 'center',
-            }}
+            fontSize={56}
+            fontWeight="300"
+            color={colors.textPrimary as any}
+            letterSpacing={8}
+            textTransform="uppercase"
+            fontFamily={'Georgia, serif' as any}
+            textShadowColor={'rgba(0,0,0,0.8)' as any}
+            textShadowOffset={{ width: 0, height: 4 }}
+            textShadowRadius={12}
+            ta="center"
           >
             Allen Eubank
           </Text>
           <Text
-            style={{
-              fontSize: 16,
-              color: colors.gold,
-              letterSpacing: 4,
-              marginTop: 12,
-              // @ts-expect-error web style
-              fontFamily: 'Georgia, serif',
-              fontStyle: 'italic',
-            }}
+            fontSize={16}
+            color={colors.gold as any}
+            letterSpacing={4}
+            marginTop={12}
+            fontFamily={'Georgia, serif' as any}
+            fontStyle="italic"
           >
             (Big Boss)
           </Text>
-        </View>
+        </YStack>
 
         {/* Stained glass windows navigation */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            gap: 40,
-            flexWrap: 'wrap',
-            marginBottom: 80,
-          }}
+        <XStack
+          justifyContent="center"
+          alignItems="flex-start"
+          gap={60}
+          flexWrap="wrap"
+          marginBottom={80}
         >
           <StainedGlassWindow
             title="Projects"
@@ -252,101 +234,67 @@ export default function Index() {
             href="/contact"
             image={images.windows.contact}
           />
-        </View>
+        </XStack>
 
         {/* Social links */}
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            gap: 16,
-            marginBottom: 40,
-          }}
-        >
+        <XStack justifyContent="center" gap={16} marginBottom={40}>
           <SocialLink href="https://x.com/zeroxBigBoss" label="Twitter / X">
             <TwitterIcon />
           </SocialLink>
           <SocialLink href="https://github.com/0xbigboss" label="GitHub">
             <GitHubIcon />
           </SocialLink>
-        </View>
+        </XStack>
 
         {/* Decorative divider */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '100%',
-            maxWidth: 600,
-            marginBottom: 30,
-            gap: 16,
-          }}
+        <XStack
+          alignItems="center"
+          width="100%"
+          maxWidth={600}
+          marginBottom={30}
+          gap={16}
         >
           {/* Left line */}
-          <View
-            style={{
-              flex: 1,
-              height: 1,
-              backgroundColor: colors.gold,
-              opacity: 0.6,
-            }}
-          />
+          <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.6} />
           {/* Center ornament - diamond with dots */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <View
-              style={{
-                width: 4,
-                height: 4,
-                borderRadius: 2,
-                backgroundColor: colors.gold,
-                opacity: 0.5,
-              }}
+          <XStack alignItems="center" gap={8}>
+            <YStack
+              width={4}
+              height={4}
+              borderRadius={2 as any}
+              backgroundColor={colors.gold as any}
+              opacity={0.5}
             />
-            <View
-              style={{
-                width: 8,
-                height: 8,
-                backgroundColor: colors.gold,
-                // @ts-expect-error web style
-                transform: 'rotate(45deg)',
-              }}
+            <YStack
+              width={8}
+              height={8}
+              backgroundColor={colors.gold as any}
+              rotate="45deg"
             />
-            <View
-              style={{
-                width: 4,
-                height: 4,
-                borderRadius: 2,
-                backgroundColor: colors.gold,
-                opacity: 0.5,
-              }}
+            <YStack
+              width={4}
+              height={4}
+              borderRadius={2 as any}
+              backgroundColor={colors.gold as any}
+              opacity={0.5}
             />
-          </View>
+          </XStack>
           {/* Right line */}
-          <View
-            style={{
-              flex: 1,
-              height: 1,
-              backgroundColor: colors.gold,
-              opacity: 0.6,
-            }}
-          />
-        </View>
+          <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.6} />
+        </XStack>
 
         {/* Tagline in footer */}
         <Text
-          style={{
-            fontSize: 14,
-            color: colors.textSecondary,
-            letterSpacing: 1,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-            fontStyle: 'italic',
-            textAlign: 'center',
-          }}
+          fontSize={14}
+          color={colors.textSecondary as any}
+          letterSpacing={1}
+          fontFamily={'Georgia, serif' as any}
+          fontStyle="italic"
+          ta="center"
         >
           "We can build anything we want given enough time."
         </Text>
-      </View>
-    </View>
+      </YStack>
+    </div>
   )
 }

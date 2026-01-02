@@ -1,0 +1,203 @@
+---
+title: How I Contributed to Ghostty with No Terminal Developer Experience
+description: 4 crash bugs fixed with zero terminal development experience. AI tutoring + human humility = real contributions.
+date: "2026-01-02"
+---
+
+[Mitchell Hashimoto called out my contributions](https://x.com/mitchellh/status/2006114026191769924) to [Ghostty](https://ghostty.org) on X:
+
+<CollapsibleImage
+  src="/images/ghostty/screenshot-x-mitchellh-post.png"
+  alt="Mitchell's X post about AI-assisted contributions"
+  maxHeight={350}
+/>
+
+4 crash bugs fixed in the terminal renderer and data structures. All merged with regression tests. 327K views on that post.
+
+The twist: I had zero terminal development experience going in. I wasn't looking to contribute. I was just trying to fix my own problem.
+
+## The Origin Story
+
+December 5th. I posted in the Ghostty #help channel:
+
+![Discord help thread - reporting random crashes](/images/ghostty/screenshot-discord-1-help-thread.png)
+
+I'm a heavy Ghostty user. Claude Code sessions that span days. Never restart. So random crashes were killing me.
+
+Upgraded to tip. Still crashing. At some point I decided: fine, I'll build it locally and figure this out myself.
+
+## What I Actually Knew
+
+I write Zig. I build on macOS. That's the overlap.
+
+What I didn't know:
+
+- how viewport coordinates relate to page-relative coordinates
+- what a CircBuf does during resize/reflow cycles
+- the entire PageList architecture
+- why the renderer needs to know about active/inactive screen states
+
+Ghostty is a different beast. Multi-threaded renderer, custom memory allocators, GPU pipelines. The gap wasn't programming skill. It was domain knowledge.
+
+## The First Patch
+
+December 16th. I posted in Discord asking for experienced eyes. Transparent from day one. AI generated. No pretense.
+
+![Discord - first patch submitted with AI transparency](/images/ghostty/screenshot-discord-2-first-patch-submitted-bigboss-intro.png)
+
+Mitchell's advice: get the AI to write a unit test that fails without the patch and passes with it. So I opened [Discussion #9957](https://github.com/ghostty-org/ghostty/discussions/9957).
+
+Then something interesting happened. Mitchell arrived at the identical diff independently: "@BigBoss your AI did really good work, [#9959](https://github.com/ghostty-org/ghostty/pull/9959) i came to the identical diff organically w/o looking at your patch"
+
+Validation.
+
+## The Prompt Exchange
+
+This exchange stuck with me:
+
+Me: "[Opus 4.5](https://www.anthropic.com/claude/opus) and codex 5.1 high are amazing models, nothing really gets by them. I can only take credit for the prompts haha"
+
+Mitchell: "Yeah I code primarily with Opus 4.5 and do analysis with GPT 5.1 so that tracks."
+
+Mitchell: "it still requires the right prompts"
+
+The models are powerful. But they need direction. The skill is knowing what to ask.
+
+## Two More Patches
+
+December 26th. Built with `releasesafe strip=false` to get better stack traces. Found two more crashes. Also shared a crash triage skill I'd built - open source the process, not just the patches.
+
+![Discord - two more patches and skill share](/images/ghostty/screenshot-discord-3-bigboss-finds-2-more-patches.png)
+
+Mitchell: "Those both look good and your skill also looks really good, thanks. high quality AI work is always appreciated. im gonna critique the patches a bit more, I think they're a bit suspect but the actual crash analysis and stack trace inspection is good"
+
+The patches were at the wrong layer. But the analysis was solid. That's the AI contribution: rapid hypothesis generation and systematic investigation. The human contribution: understanding where fixes actually belong.
+
+The backstory I shared in Discord: "I'm a heavy ghostty user and basically never restart and have claude code sessions that span days. So I started peeking at the source tracing that original bug. It's been a fun experiment on how well a novice zig dev can get up to speed quickly on a large project with aid of AI. fun times."
+
+## The Final Bug
+
+December 27th. Full circle.
+
+![Discord - final bug caught after a month](/images/ghostty/screenshot-discord-4-patch-4-submitted.png)
+
+[Discussion #10074](https://github.com/ghostty-org/ghostty/discussions/10074). Viewport pin overflow in getBottomRight after resize.
+
+The original crash from December 5th. Finally caught.
+
+## The Results
+
+4 bugs in core subsystems:
+
+**Renderer (3):**
+
+- linkCells coordinate mismatch ([#9957](https://github.com/ghostty-org/ghostty/discussions/9957))
+- linkCells bounds check ([#10032](https://github.com/ghostty-org/ghostty/discussions/10032))
+- viewport overflow in getBottomRight ([#10074](https://github.com/ghostty-org/ghostty/discussions/10074))
+
+**Data structures (1):**
+
+- CircBuf integer underflow during resize ([#10063](https://github.com/ghostty-org/ghostty/discussions/10063))
+
+All with regression tests. All merged.
+
+## The Technique
+
+Structured prompts for investigation. XML tags for context:
+
+```xml
+<role>crash investigator for ghostty terminal</role>
+<context>
+- crash in PageList.zig during resize
+- affects getBottomRight function
+- happens with specific viewport configurations
+</context>
+<current_state>
+- reproduced locally
+- narrowed to bounds check issue
+</current_state>
+<next_steps>investigate coordinate translation</next_steps>
+```
+
+[Codex](https://openai.com/index/introducing-codex/) for single-turn analysis. Point it at the crash, get a hypothesis. [Claude Code](https://docs.anthropic.com/en/docs/claude-code) for multi-turn iteration. Dig deeper, test theories, implement fixes.
+
+The [crash triage skill](https://github.com/0xBigBoss/ghostty/blob/main/.codex/skills/ghostty-crash-triage/SKILL.md) systematized this. Same structured investigation pattern, every time. Repeatable.
+
+## What This Actually Demonstrates
+
+I wasn't trying to contribute to open source. I was trying to stop my terminal from crashing.
+
+The AI didn't write code for a non-programmer. It helped an experienced programmer learn a new domain fast. Viewport coordinates. Circular buffer invariants. Page list architecture. Concepts I'd never encountered, explained on demand.
+
+But the human element was essential. I walked into Discord saying "I am still new to the src code." That framing opened doors. Mitchell could critique the analysis, point out when patches were at the wrong layer, validate when the crash inspection was solid.
+
+AI for rapid learning. Humans for validation. Both required.
+
+## The Takeaway
+
+"it still requires the right prompts"
+
+That's it. The models are powerful. But they need direction. The skill is knowing what to ask, how to frame the problem, when to dig deeper.
+
+And the human element remains. Transparency about AI use. Humility in community interactions. Willingness to have your work critiqued.
+
+I can only take credit for the prompts. But the prompts are the hard part.
+
+Confidence in chaos. We can build anything we want given enough time.
+
+---
+
+## Resources
+
+Everything from this investigation is available:
+
+**The Crash Triage Skill**
+- [ghostty-crash-triage](https://github.com/0xBigBoss/ghostty/blob/main/.codex/skills/ghostty-crash-triage/SKILL.md) - The Claude Code skill I built and shared with the Ghostty community
+
+**GitHub Discussions**
+- [#9957](https://github.com/ghostty-org/ghostty/discussions/9957) - linkCells coordinate mismatch
+- [#10032](https://github.com/ghostty-org/ghostty/discussions/10032) - linkCells bounds check
+- [#10063](https://github.com/ghostty-org/ghostty/discussions/10063) - CircBuf integer underflow
+- [#10074](https://github.com/ghostty-org/ghostty/discussions/10074) - viewport overflow in getBottomRight
+
+**AI Session Data**
+- 98 Claude Code sessions
+- 57 Codex CLI sessions
+
+<TranscriptGroup title="Key Session Transcripts" count={4}>
+  <TranscriptViewer
+    title="Session 47: CircBuf Integer Underflow"
+    tool="claude-code"
+    date="December 26, 2025"
+    summary="Identified integer underflow in CircBuf.zig when head pointer exceeds buffer length during resize"
+  >
+{`> user: look at this crash, happens during resize
+
+Looking at the stack trace pointing to CircBuf.zig line 234...
+
+The issue is in the growCapacity function. When head > self.buf.len,
+the subtraction self.buf.len - self.head underflows.
+
+The fix: check if head <= buf.len before the subtraction,
+otherwise calculate the wrapped distance differently.`}
+  </TranscriptViewer>
+  <TranscriptViewer
+    title="Session 52: linkCells Coordinate Translation"
+    tool="claude-code"
+    date="December 16, 2025"
+    summary="Fixed viewport vs page-relative coordinate mismatch in linkCells function"
+  >
+{`> user: the renderer crashes randomly when clicking links
+
+The linkCells function receives viewport-relative coordinates but
+the underlying PageList expects page-relative coordinates.
+
+When the viewport is scrolled, these differ by the scroll offset.
+The fix is to translate coordinates before the PageList lookup.`}
+  </TranscriptViewer>
+</TranscriptGroup>
+
+**Tools Used**
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) - Multi-turn iteration and implementation
+- [Codex CLI](https://openai.com/index/introducing-codex/) - Single-turn crash analysis
+- [Opus 4.5](https://www.anthropic.com/claude/opus) - Primary model for code analysis
