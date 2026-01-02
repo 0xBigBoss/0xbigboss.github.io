@@ -1,8 +1,18 @@
+import '@tamagui/core/reset.css'
 import { Slot } from 'one'
+import { TamaguiProvider } from 'tamagui'
+import { SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
+import config from '../config/tamagui.config'
+import type { ReactNode } from 'react'
 
-/**
- * The root _layout.tsx filters <html /> and <body /> out on native
- */
+function ThemeProvider({ children }: { children: ReactNode }) {
+  const userScheme = useUserScheme()
+  return (
+    <TamaguiProvider config={config} defaultTheme={userScheme.value ?? 'dark'}>
+      {children}
+    </TamaguiProvider>
+  )
+}
 
 export default function Layout() {
   return (
@@ -40,7 +50,11 @@ export default function Layout() {
         <meta name="theme-color" content="#0a0a12" />
       </head>
 
-      <Slot />
+      <SchemeProvider>
+        <ThemeProvider>
+          <Slot />
+        </ThemeProvider>
+      </SchemeProvider>
     </html>
   )
 }
