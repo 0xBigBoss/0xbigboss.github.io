@@ -1,4 +1,5 @@
 import { Text, XStack, YStack } from '~/features/ui'
+import { AnimatePresence } from 'tamagui'
 import type { ReactNode } from 'react'
 import { useState } from 'react'
 
@@ -23,15 +24,15 @@ function CollapsibleImage({ src, alt, maxHeight = 400 }: CollapsibleImageProps) 
 
   return (
     <YStack marginBottom={20} marginTop={8}>
-      <div
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          maxHeight: expanded ? 'none' : maxHeight,
-          borderRadius: 8,
-          border: `1px solid ${colors.cardBorder}`,
-          transition: 'max-height 0.3s ease-out',
-        }}
+      <YStack
+        position="relative"
+        overflow="hidden"
+        borderRadius={8 as any}
+        borderWidth={1}
+        borderColor={colors.cardBorder as any}
+        animation="medium"
+        animateOnly={['max-height']}
+        maxHeight={expanded ? 2000 : maxHeight}
       >
         <img
           src={src}
@@ -43,63 +44,76 @@ function CollapsibleImage({ src, alt, maxHeight = 400 }: CollapsibleImageProps) 
           }}
         />
         {/* Gradient fade overlay when collapsed */}
-        {!expanded && (
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: 120,
-              background: `linear-gradient(transparent, ${colors.codeBg} 70%, ${colors.codeBg})`,
-              pointerEvents: 'none',
-            }}
-          />
-        )}
+        <AnimatePresence>
+          {!expanded && (
+            <YStack
+              key="gradient-overlay"
+              animation="medium"
+              animateOnly={['opacity']}
+              enterStyle={{ opacity: 0 }}
+              exitStyle={{ opacity: 0 }}
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              height={120}
+              pointerEvents="none"
+              style={{
+                background: `linear-gradient(transparent, ${colors.codeBg} 70%, ${colors.codeBg})`,
+              }}
+            />
+          )}
+        </AnimatePresence>
         {/* Expand/collapse button */}
-        <div
-          onClick={() => setExpanded(!expanded)}
-          style={{
-            position: expanded ? 'relative' : 'absolute',
-            bottom: expanded ? 0 : 12,
-            left: 0,
-            right: 0,
-            display: 'flex',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            padding: expanded ? '12px 0' : 0,
-            background: expanded ? colors.codeBg : 'transparent',
-          }}
+        <XStack
+          animation="medium"
+          animateOnly={['opacity', 'transform']}
+          position={expanded ? 'relative' : 'absolute'}
+          bottom={expanded ? 0 : 12}
+          left={0}
+          right={0}
+          justifyContent="center"
+          cursor="pointer"
+          paddingVertical={expanded ? 12 : 0}
+          backgroundColor={expanded ? (colors.codeBg as any) : 'transparent'}
+          onPress={() => setExpanded(!expanded)}
         >
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '8px 16px',
-              borderRadius: 20,
-              backgroundColor: colors.gold + '20',
-              border: `1px solid ${colors.gold}40`,
-              color: colors.gold,
-              fontSize: 13,
-              fontFamily: 'system-ui, sans-serif',
-              fontWeight: 500,
-              transition: 'all 0.2s ease',
+          <XStack
+            alignItems="center"
+            gap={8}
+            paddingHorizontal={16}
+            paddingVertical={8}
+            borderRadius={20 as any}
+            backgroundColor={(colors.gold + '20') as any}
+            borderWidth={1}
+            borderColor={(colors.gold + '40') as any}
+            animation="fast"
+            hoverStyle={{
+              backgroundColor: (colors.gold + '30') as any,
+              scale: 1.02,
+            }}
+            pressStyle={{
+              scale: 0.98,
             }}
           >
-            {expanded ? 'Collapse' : 'Expand screenshot'}
-            <span
-              style={{
-                display: 'inline-block',
-                transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.2s ease',
-              }}
+            <Text
+              color={colors.gold as any}
+              fontSize={13}
+              fontFamily={'system-ui, sans-serif' as any}
+              fontWeight="500"
             >
-              ▼
-            </span>
-          </span>
-        </div>
-      </div>
+              {expanded ? 'Collapse' : 'Expand screenshot'}
+            </Text>
+            <YStack
+              animation="fast"
+              animateOnly={['transform']}
+              rotate={expanded ? '180deg' : '0deg'}
+            >
+              <Text color={colors.gold as any} fontSize={12}>▼</Text>
+            </YStack>
+          </XStack>
+        </XStack>
+      </YStack>
       {/* Caption */}
       {alt && (
         <Text

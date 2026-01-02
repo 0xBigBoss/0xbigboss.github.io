@@ -1,5 +1,16 @@
 import { createTamagui } from 'tamagui'
 import { defaultConfig } from '@tamagui/config/v4'
+import { createAnimations } from '@tamagui/animations-css'
+
+// CSS animation presets
+const animations = createAnimations({
+  fast: 'ease-out 150ms',
+  medium: 'ease-out 300ms',
+  slow: 'ease-out 450ms',
+  quick: 'ease-out 100ms',
+  bouncy: 'cubic-bezier(0.175, 0.885, 0.32, 1.275) 300ms',
+  lazy: 'ease-in-out 500ms',
+})
 
 // Gothic color palette
 const gothicColors = {
@@ -13,6 +24,7 @@ const gothicColors = {
 
 export const config = createTamagui({
   ...defaultConfig,
+  animations,
   settings: {
     ...defaultConfig.settings,
     styleCompat: 'react-native',
