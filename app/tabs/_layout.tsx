@@ -6,12 +6,15 @@ export default function TabsLayout() {
     <Tabs style={styles.container}>
       <TabSlot />
       <TabList style={styles.tabBar}>
+        {/* @ts-expect-error - One typed routes */}
         <TabTrigger name="home" href="/tabs" asChild>
           <CustomTab>Home</CustomTab>
         </TabTrigger>
+        {/* @ts-expect-error - One typed routes */}
         <TabTrigger name="profile" href="/tabs/profile" asChild>
           <CustomTab>Profile</CustomTab>
         </TabTrigger>
+        {/* @ts-expect-error - One typed routes */}
         <TabTrigger name="settings" href="/tabs/settings" asChild>
           <CustomTab>Settings</CustomTab>
         </TabTrigger>

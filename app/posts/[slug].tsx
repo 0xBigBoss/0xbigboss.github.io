@@ -123,7 +123,7 @@ export default function PostPage() {
       <YStack maxWidth={700} marginHorizontal="auto" width="100%" zIndex={1}>
         {/* Back link */}
         <Link href={'/posts' as any}>
-          <Text color={colors.gold as any} fontSize={14} letterSpacing={2} marginBottom={60}>
+          <Text color={colors.gold as any} fontSize={14} letterSpacing={2} marginBottom={80}>
             ← POSTS
           </Text>
         </Link>
