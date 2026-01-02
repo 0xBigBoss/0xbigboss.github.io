@@ -20,7 +20,11 @@ The twist: I had zero terminal development experience going in. I wasn't looking
 
 December 5th. I posted in the Ghostty #help channel:
 
-![Discord help thread - reporting random crashes](/images/ghostty/screenshot-discord-1-help-thread.png)
+<CollapsibleImage
+  src="/images/ghostty/screenshot-discord-1-help-thread.png"
+  alt="Discord help thread - reporting random crashes"
+  maxHeight={350}
+/>
 
 I'm a heavy Ghostty user. Claude Code sessions that span days. Never restart. So random crashes were killing me.
 
@@ -43,7 +47,11 @@ Ghostty is a different beast. Multi-threaded renderer, custom memory allocators,
 
 December 16th. I posted in Discord asking for experienced eyes. Transparent from day one. AI generated. No pretense.
 
-![Discord - first patch submitted with AI transparency](/images/ghostty/screenshot-discord-2-first-patch-submitted-bigboss-intro.png)
+<CollapsibleImage
+  src="/images/ghostty/screenshot-discord-2-first-patch-submitted-bigboss-intro.png"
+  alt="Discord - first patch submitted with AI transparency"
+  maxHeight={350}
+/>
 
 Mitchell's advice: get the AI to write a unit test that fails without the patch and passes with it. So I opened [Discussion #9957](https://github.com/ghostty-org/ghostty/discussions/9957).
 
@@ -67,7 +75,11 @@ The models are powerful. But they need direction. The skill is knowing what to a
 
 December 26th. Built with `releasesafe strip=false` to get better stack traces. Found two more crashes. Also shared a crash triage skill I'd built - open source the process, not just the patches.
 
-![Discord - two more patches and skill share](/images/ghostty/screenshot-discord-3-bigboss-finds-2-more-patches.png)
+<CollapsibleImage
+  src="/images/ghostty/screenshot-discord-3-bigboss-finds-2-more-patches.png"
+  alt="Discord - two more patches and skill share"
+  maxHeight={350}
+/>
 
 Mitchell: "Those both look good and your skill also looks really good, thanks. high quality AI work is always appreciated. im gonna critique the patches a bit more, I think they're a bit suspect but the actual crash analysis and stack trace inspection is good"
 
@@ -79,7 +91,11 @@ The backstory I shared in Discord: "I'm a heavy ghostty user and basically never
 
 December 27th. Full circle.
 
-![Discord - final bug caught after a month](/images/ghostty/screenshot-discord-4-patch-4-submitted.png)
+<CollapsibleImage
+  src="/images/ghostty/screenshot-discord-4-patch-4-submitted.png"
+  alt="Discord - final bug caught after a month"
+  maxHeight={350}
+/>
 
 [Discussion #10074](https://github.com/ghostty-org/ghostty/discussions/10074). Viewport pin overflow in getBottomRight after resize.
 
