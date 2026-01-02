@@ -1,6 +1,6 @@
 ---
-title: How I Contributed to Ghostty with No Terminal Developer Experience
-description: 4 crash bugs fixed with zero terminal development experience. AI tutoring + human humility = real contributions.
+title: "How I Fixed 4 Crash Bugs in Ghostty Using AI: A Developer's Guide to Claude Code"
+description: Zero terminal development experience. 4 crash bugs fixed in Ghostty. Learn how Claude Code and Codex CLI turned AI tutoring into real open source contributions.
 date: "2026-01-02"
 ---
 
@@ -143,7 +143,7 @@ And the human element remains. Transparency about AI use. Humility in community 
 
 I can only take credit for the prompts. But the prompts are the hard part.
 
-Confidence in chaos. We can build anything we want given enough time.
+Confidence in Chaos. We can build anything we want given enough time.
 
 ---
 
@@ -194,6 +194,36 @@ the underlying PageList expects page-relative coordinates.
 
 When the viewport is scrolled, these differ by the scroll offset.
 The fix is to translate coordinates before the PageList lookup.`}
+  </TranscriptViewer>
+  <TranscriptViewer
+    title="Session 68: Viewport Overflow in getBottomRight"
+    tool="claude-code"
+    date="December 29, 2025"
+    summary="Found buffer overflow when viewport exceeds page boundaries during rapid scrolling"
+  >
+{`> user: crash during fast scroll, look at this minidump
+
+Analyzing the stack trace... getBottomRight returns coordinates
+outside the valid page region when viewport.top + viewport.height
+exceeds the total page rows.
+
+The fix: clamp the bottom-right calculation to page boundaries
+before accessing the underlying buffer.`}
+  </TranscriptViewer>
+  <TranscriptViewer
+    title="Session 31: linkCells Bounds Check"
+    tool="codex"
+    date="December 17, 2025"
+    summary="Codex single-turn analysis identified missing bounds validation in link detection"
+  >
+{`> user: analyze this crash in linkCells iteration
+
+The linkCells function iterates without checking if the cell
+coordinates are within the valid viewport region. When the
+terminal is resized during link detection, the iterator can
+access cells outside the allocated region.
+
+Recommendation: add bounds check before cell access.`}
   </TranscriptViewer>
 </TranscriptGroup>
 

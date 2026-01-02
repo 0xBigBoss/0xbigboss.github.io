@@ -1,16 +1,17 @@
 import { getMDXComponent } from 'mdx-bundler/client'
 import { useMemo } from 'react'
-import { useLoader } from 'one'
-import { Text, View, Pressable } from 'react-native'
-import { Link } from 'one'
+import { useLoader, Link, Head } from 'one'
+import { Text, XStack, YStack } from '~/features/ui'
 import { components } from '~/features/mdx-components'
+
+const siteUrl = 'https://0xbigboss.github.io'
 
 // Gothic color palette
 const colors = {
-  background: '#0a0a12',
-  gold: '#c9a227',
-  textPrimary: '#e8e8f0',
-  textSecondary: '#a0a0b0',
+  background: '#0a0a12' as const,
+  gold: '#c9a227' as const,
+  textPrimary: '#e8e8f0' as const,
+  textSecondary: '#a0a0b0' as const,
 }
 
 type Frontmatter = {
@@ -37,7 +38,7 @@ export async function loader({ params }: { params: { slug: string } }): Promise<
   const { getMDXBySlug } = await import('@vxrn/mdx')
   const { frontmatter, code } = await getMDXBySlug('data/posts', params.slug)
   return {
-    frontmatter: frontmatter as Frontmatter,
+    frontmatter: { ...frontmatter, slug: params.slug } as Frontmatter,
     code,
   }
 }
@@ -54,27 +55,52 @@ export default function PostPage() {
       })
     : null
 
+  const postUrl = `${siteUrl}/posts/${frontmatter.slug}`
+  const imageUrl = `${siteUrl}/images/heroes/posts.png`
+
   return (
-    <View
+    <>
+      <Head>
+        <title>{frontmatter.title} | Allen Eubank</title>
+        <meta name="title" content={frontmatter.title} />
+        <meta name="description" content={frontmatter.description || ''} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={postUrl} />
+        <meta property="og:title" content={frontmatter.title} />
+        <meta property="og:description" content={frontmatter.description || ''} />
+        <meta property="og:image" content={imageUrl} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@zeroxBigBoss" />
+        <meta name="twitter:creator" content="@zeroxBigBoss" />
+        <meta name="twitter:title" content={frontmatter.title} />
+        <meta name="twitter:description" content={frontmatter.description || ''} />
+        <meta name="twitter:image" content={imageUrl} />
+      </Head>
+      <div
       style={{
         flex: 1,
         minHeight: '100vh',
         backgroundColor: colors.background,
-        paddingVertical: 60,
-        paddingHorizontal: 20,
+        paddingTop: 60,
+        paddingBottom: 60,
+        paddingLeft: 20,
+        paddingRight: 20,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       {/* Hero background image */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           height: 400,
-          // @ts-expect-error web style
           backgroundImage: 'url(/images/heroes/posts.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -82,38 +108,34 @@ export default function PostPage() {
         }}
       />
       {/* Gradient overlay */}
-      <View
+      <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          // @ts-expect-error web style
-          background: 'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.9) 300px, rgba(10,10,18,1) 400px)',
+          background:
+            'linear-gradient(180deg, transparent 0%, rgba(10,10,18,0.9) 300px, rgba(10,10,18,1) 400px)',
           pointerEvents: 'none',
         }}
       />
-      <View style={{ maxWidth: 700, marginHorizontal: 'auto', width: '100%', zIndex: 1 }}>
+      <YStack maxWidth={700} marginHorizontal="auto" width="100%" zIndex={1}>
         {/* Back link */}
-        <Link href="/posts" asChild>
-          <Pressable style={{ marginBottom: 40 }}>
-            <Text style={{ color: colors.gold, fontSize: 14, letterSpacing: 2 }}>
-              ← POSTS
-            </Text>
-          </Pressable>
+        <Link href={'/posts' as any}>
+          <Text color={colors.gold as any} fontSize={14} letterSpacing={2} marginBottom={60}>
+            ← POSTS
+          </Text>
         </Link>
 
         {/* Date */}
         {formattedDate && (
           <Text
-            style={{
-              fontSize: 12,
-              color: colors.gold,
-              marginBottom: 12,
-              letterSpacing: 2,
-              textTransform: 'uppercase',
-            }}
+            fontSize={12}
+            color={colors.gold as any}
+            marginBottom={12}
+            letterSpacing={2}
+            textTransform="uppercase"
           >
             {formattedDate}
           </Text>
@@ -121,16 +143,13 @@ export default function PostPage() {
 
         {/* Title */}
         <Text
-          style={{
-            fontSize: 42,
-            fontWeight: '300',
-            color: colors.textPrimary,
-            letterSpacing: 2,
-            marginBottom: 16,
-            // @ts-expect-error web style
-            fontFamily: 'Georgia, serif',
-            lineHeight: 52,
-          }}
+          fontSize={42}
+          fontWeight="300"
+          color={colors.textPrimary as any}
+          letterSpacing={2}
+          marginBottom={16}
+          fontFamily={'Georgia, serif' as any}
+          lineHeight={52}
         >
           {frontmatter.title}
         </Text>
@@ -138,47 +157,34 @@ export default function PostPage() {
         {/* Description */}
         {frontmatter.description && (
           <Text
-            style={{
-              fontSize: 18,
-              color: colors.textSecondary,
-              marginBottom: 40,
-              // @ts-expect-error web style
-              fontFamily: 'Georgia, serif',
-              fontStyle: 'italic',
-              lineHeight: 28,
-            }}
+            fontSize={18}
+            color={colors.textSecondary as any}
+            marginBottom={40}
+            fontFamily={'Georgia, serif' as any}
+            fontStyle="italic"
+            lineHeight={28}
           >
             {frontmatter.description}
           </Text>
         )}
 
         {/* Divider */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '100%',
-            marginBottom: 40,
-            gap: 16,
-          }}
-        >
-          <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
-          <View
-            style={{
-              width: 6,
-              height: 6,
-              backgroundColor: colors.gold,
-              // @ts-expect-error web style
-              transform: 'rotate(45deg)',
-              opacity: 0.6,
-            }}
+        <XStack alignItems="center" width="100%" marginBottom={40} gap={16}>
+          <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.3} />
+          <YStack
+            width={6}
+            height={6}
+            backgroundColor={colors.gold as any}
+            rotate="45deg"
+            opacity={0.6}
           />
-          <View style={{ flex: 1, height: 1, backgroundColor: colors.gold, opacity: 0.3 }} />
-        </View>
+          <YStack flex={1} height={1} backgroundColor={colors.gold as any} opacity={0.3} />
+        </XStack>
 
         {/* Content */}
         <Component components={components} />
-      </View>
-    </View>
+      </YStack>
+    </div>
+  </>
   )
 }
