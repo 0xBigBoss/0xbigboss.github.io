@@ -18,6 +18,7 @@ type Frontmatter = {
   title: string
   description?: string
   date?: string
+  image?: string
   slug: string
 }
 
@@ -56,12 +57,14 @@ export default function PostPage() {
     : null
 
   const postUrl = `${siteUrl}/posts/${frontmatter.slug}`
-  const imageUrl = `${siteUrl}/images/heroes/posts.png`
+  const imageUrl = frontmatter.image
+    ? `${siteUrl}${frontmatter.image}`
+    : `${siteUrl}/images/heroes/posts.png`
 
   return (
     <>
       <Head>
-        <title>{frontmatter.title} | Allen Eubank</title>
+        <title>{`${frontmatter.title} | Allen Eubank`}</title>
         <meta name="title" content={frontmatter.title} />
         <meta name="description" content={frontmatter.description || ''} />
 
