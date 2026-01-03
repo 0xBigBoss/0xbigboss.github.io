@@ -1,7 +1,7 @@
 import { Text, XStack, YStack } from '~/features/ui'
 import { AnimatePresence } from 'tamagui'
 import type { ReactNode } from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // Gothic color palette
 const colors = {
@@ -126,6 +126,47 @@ function CollapsibleImage({ src, alt, maxHeight = 400 }: CollapsibleImageProps) 
           {alt}
         </Text>
       )}
+    </YStack>
+  )
+}
+
+// XEmbed - embedded X (Twitter) posts using syndication iframe
+type XEmbedProps = {
+  tweetId: string
+}
+
+function XEmbed({ tweetId }: XEmbedProps) {
+  const [height, setHeight] = useState(400)
+
+  useEffect(() => {
+    // Listen for resize messages from Twitter iframe
+    function handleMessage(event: MessageEvent) {
+      if (event.origin === 'https://platform.twitter.com' && event.data?.['twttr.embed']) {
+        const data = event.data['twttr.embed']
+        if (data.method === 'twttr.private.resize' && data.params?.[0]?.height) {
+          setHeight(data.params[0].height)
+        }
+      }
+    }
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [])
+
+  return (
+    <YStack marginBottom={20} marginTop={8} alignItems="center" width="100%">
+      <iframe
+        src={`https://platform.twitter.com/embed/Tweet.html?id=${tweetId}&theme=dark`}
+        style={{
+          width: '100%',
+          maxWidth: 550,
+          height,
+          border: 'none',
+          borderRadius: 12,
+          overflow: 'hidden',
+        }}
+        allowFullScreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      />
     </YStack>
   )
 }
@@ -471,4 +512,5 @@ export const components = {
   TranscriptViewer,
   TranscriptGroup,
   CollapsibleImage,
+  XEmbed,
 }
