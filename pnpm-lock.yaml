@@ -61,7 +61,7 @@ importers:
         version: 10.1.1(esbuild@0.25.12)
       one:
         specifier: ^1.2.42
-        version: 1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@react-navigation/native@7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(@types/node@25.0.3)(@types/react@19.2.7)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(typescript@5.7.3)(yaml@2.8.2)
+        version: 1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@react-navigation/native@7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(@swc/helpers@0.5.18)(@types/node@25.0.3)(@types/react@19.2.7)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(typescript@5.7.3)(yaml@2.8.2)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -2020,6 +2020,9 @@ packages:
 
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  '@swc/helpers@0.5.18':
+    resolution: {integrity: sha512-TXTnIcNJQEKwThMMqBXsZ4VGAza6bvN4pa41Rkqoio6QBKMvo+5lexeTMScGCIxtzgQJzElcvIltani+adC5PQ==}
 
   '@swc/types@0.1.25':
     resolution: {integrity: sha512-iAoY/qRhNH8a/hBvm3zKj9qQ4oc2+3w1unPJa2XvTK3XjeLXtzcCingVPw/9e5mn1+0yPqxcBGp9Jf0pkfMb1g==}
@@ -8154,7 +8157,7 @@ snapshots:
   '@swc/core-win32-x64-msvc@1.7.26':
     optional: true
 
-  '@swc/core@1.15.8':
+  '@swc/core@1.15.8(@swc/helpers@0.5.18)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.25
@@ -8169,8 +8172,9 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.15.8
       '@swc/core-win32-ia32-msvc': 1.15.8
       '@swc/core-win32-x64-msvc': 1.15.8
+      '@swc/helpers': 0.5.18
 
-  '@swc/core@1.7.26':
+  '@swc/core@1.7.26(@swc/helpers@0.5.18)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.25
@@ -8185,8 +8189,14 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.7.26
       '@swc/core-win32-ia32-msvc': 1.7.26
       '@swc/core-win32-x64-msvc': 1.7.26
+      '@swc/helpers': 0.5.18
 
   '@swc/counter@0.1.3': {}
+
+  '@swc/helpers@0.5.18':
+    dependencies:
+      tslib: 2.8.1
+    optional: true
 
   '@swc/types@0.1.25':
     dependencies:
@@ -9475,14 +9485,14 @@ snapshots:
       react: 19.1.0
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0)
 
-  '@vxrn/compiler@1.2.42(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)':
+  '@vxrn/compiler@1.2.42(@swc/helpers@0.5.18)(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-destructuring': 7.28.5(@babel/core@7.28.5)
       '@babel/plugin-transform-react-jsx': 7.27.1(@babel/core@7.28.5)
       '@babel/plugin-transform-regenerator': 7.28.4(@babel/core@7.28.5)
       '@react-native/babel-plugin-codegen': 0.82.1(@babel/core@7.28.5)
-      '@swc/core': 1.15.8
+      '@swc/core': 1.15.8(@swc/helpers@0.5.18)
       '@vxrn/utils': 1.2.42
       '@vxrn/vite-native-client': 1.2.42(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))
       babel-plugin-react-compiler: 1.0.0
@@ -12175,7 +12185,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  one@1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@react-navigation/native@7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(@types/node@25.0.3)(@types/react@19.2.7)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(typescript@5.7.3)(yaml@2.8.2):
+  one@1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@react-navigation/native@7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(@swc/helpers@0.5.18)(@types/node@25.0.3)(@types/react@19.2.7)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(typescript@5.7.3)(yaml@2.8.2):
     dependencies:
       '@azure/core-asynciterator-polyfill': 1.0.2
       '@babel/core': 7.28.5
@@ -12191,10 +12201,10 @@ snapshots:
       '@react-navigation/native': 7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)
       '@react-navigation/native-stack': 7.6.4(@react-native-masked-view/masked-view@0.3.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(@react-navigation/native@7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)
       '@react-navigation/routers': 7.5.3
-      '@swc/core': 1.15.8
+      '@swc/core': 1.15.8(@swc/helpers@0.5.18)
       '@ungap/structured-clone': 1.3.0
       '@vxrn/color-scheme': 1.2.42(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)
-      '@vxrn/compiler': 1.2.42(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
+      '@vxrn/compiler': 1.2.42(@swc/helpers@0.5.18)(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
       '@vxrn/resolve': 1.2.42
       '@vxrn/tslib-lite': 1.2.42
       '@vxrn/use-isomorphic-layout-effect': 1.2.42
@@ -12229,9 +12239,9 @@ snapshots:
       tsconfig-paths: 4.2.0
       use-latest-callback: 0.2.6(react@19.1.0)
       vite: 7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2)
-      vite-plugin-barrel: 0.4.1(vite@7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
+      vite-plugin-barrel: 0.4.1(@swc/helpers@0.5.18)(vite@7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
       vite-tsconfig-paths: 5.1.4(typescript@5.7.3)(vite@7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2))
-      vxrn: 1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@types/node@25.0.3)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-dom@19.1.0(react@19.1.0))(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
+      vxrn: 1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@swc/helpers@0.5.18)(@types/node@25.0.3)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-dom@19.1.0(react@19.1.0))(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
       ws: 8.18.3
       xxhashjs: 0.2.2
     optionalDependencies:
@@ -13603,9 +13613,9 @@ snapshots:
 
   vite-bundle-analyzer@1.3.2: {}
 
-  vite-plugin-barrel@0.4.1(vite@7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2)):
+  vite-plugin-barrel@0.4.1(@swc/helpers@0.5.18)(vite@7.3.0(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(terser@5.44.1)(yaml@2.8.2)):
     dependencies:
-      '@swc/core': 1.7.26
+      '@swc/core': 1.7.26(@swc/helpers@0.5.18)
       debug: 4.4.3
       oxc-resolver: 1.9.3
       swc-plugin-barrel: 0.3.0
@@ -13643,13 +13653,13 @@ snapshots:
 
   vlq@1.0.1: {}
 
-  vxrn@1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@types/node@25.0.3)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-dom@19.1.0(react@19.1.0))(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2):
+  vxrn@1.2.42(@babel/runtime@7.28.4)(@expo/metro-config@54.0.8(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)))(@swc/helpers@0.5.18)(@types/node@25.0.3)(expo@54.0.22(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(jiti@1.21.7)(metro-config@0.83.3)(metro@0.83.3)(react-dom@19.1.0(react@19.1.0))(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react-refresh@0.14.2)(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2):
     dependencies:
       '@expo/config-plugins': 8.0.11
       '@hono/node-server': 1.19.7(hono@4.11.3)
       '@react-native/dev-middleware': 0.82.1
       '@rollup/plugin-node-resolve': 15.3.1(rollup@4.54.0)
-      '@vxrn/compiler': 1.2.42(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
+      '@vxrn/compiler': 1.2.42(@swc/helpers@0.5.18)(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-native-reanimated@4.1.6(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.19(yaml@2.8.2))(terser@5.44.1)(yaml@2.8.2)
       '@vxrn/debug': 1.2.42
       '@vxrn/query-string': 1.2.42
       '@vxrn/react-native-prebuilt': 1.2.42(@types/node@25.0.3)(jiti@1.21.7)(lightningcss@1.30.2)(react-dom@19.1.0(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.1.0))(react@19.1.0)(terser@5.44.1)(yaml@2.8.2)
